@@ -70,8 +70,20 @@ class VideoPlayerBasic {
  * @description method set events on control elements of video player
  * @returns {undefined} undefined
  */
-    _setEvents() {
-      this._video.addEventListener('click', () => this.toggle());
+   _setEvents() {
+      let clickCount1 = false;
+      let clickCount2 = false;
+      this._video.addEventListener('click', () => {
+        setTimeout(() => {
+          if (clickCount1 && clickCount2) {
+            clickCount1 = false;
+          } else if (!clickCount1 && clickCount2) {
+            clickCount2 = false;
+          } else if (!clickCount1 && !clickCount2) {
+            this.toggle();
+          }
+         },300);
+      });
       this._toggleBtn.addEventListener('click', () => this.toggle());
       this._video.addEventListener('timeupdate', () => this._handlerProgress());
       this._progressContainer.addEventListener('click', (e) => this._scrub(e));
@@ -82,7 +94,11 @@ class VideoPlayerBasic {
       this._playbackRate.addEventListener('input', () => this._setPlaybackRate());
       this._btnSkipNext.addEventListener('click', (e) => this._skipVideo(e));
       this._btnSkipPrev.addEventListener('click', (e) => this._skipVideo(e));
-      this._video.addEventListener('dblclick', (e) => this._mouseClickSkipVideo(e));
+      this._video.addEventListener('dblclick', (e) => {
+        clickCount1 = true;
+        clickCount2 = true;
+        this._mouseClickSkipVideo(e)
+      });
     }
 /**
  * @description method add video player to template
