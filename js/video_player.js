@@ -76,12 +76,9 @@ class VideoPlayerBasic {
         setTimeout(() => {
           if (clickCount === 2) {
             clickCount--;
-            console.log(clickCount);
           } else if (clickCount === 1) {
             clickCount--;
-            console.log(clickCount);
           } else if (!clickCount) {
-            console.log(clickCount, 'click');
             this.toggle();
           }
          },300);
@@ -98,7 +95,6 @@ class VideoPlayerBasic {
       this._btnSkipPrev.addEventListener('click', (e) => this._skipVideo(e));
       this._video.addEventListener('dblclick', (e) => {
         clickCount = 2;
-        console.log(clickCount);
         this._mouseClickSkipVideo(e)
       });
     }
