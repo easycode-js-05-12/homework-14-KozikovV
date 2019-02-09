@@ -71,15 +71,17 @@ class VideoPlayerBasic {
  * @returns {undefined} undefined
  */
    _setEvents() {
-      let clickCount1 = false;
-      let clickCount2 = false;
+      let clickCount = 0;
       this._video.addEventListener('click', () => {
         setTimeout(() => {
-          if (clickCount1 && clickCount2) {
-            clickCount1 = false;
-          } else if (!clickCount1 && clickCount2) {
-            clickCount2 = false;
-          } else if (!clickCount1 && !clickCount2) {
+          if (clickCount === 2) {
+            clickCount--;
+            console.log(clickCount);
+          } else if (clickCount === 1) {
+            clickCount--;
+            console.log(clickCount);
+          } else if (!clickCount) {
+            console.log(clickCount, 'click');
             this.toggle();
           }
          },300);
@@ -95,8 +97,8 @@ class VideoPlayerBasic {
       this._btnSkipNext.addEventListener('click', (e) => this._skipVideo(e));
       this._btnSkipPrev.addEventListener('click', (e) => this._skipVideo(e));
       this._video.addEventListener('dblclick', (e) => {
-        clickCount1 = true;
-        clickCount2 = true;
+        clickCount = 2;
+        console.log(clickCount);
         this._mouseClickSkipVideo(e)
       });
     }
